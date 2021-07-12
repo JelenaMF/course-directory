@@ -1,8 +1,16 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'; 
 
 class Home extends Component {    
   
+  handleSubmit = (e) => {
+    e.preventDefault();
+    let teacherName = this.name.value;
+    let teacherTopic = this.topic.value;
+    let path = `teachers/${teacherTopic}/${teacherName}`
+    this.props.history.push(path);
+  }
+
   render() {
     return (
       <div className="main-content home">
@@ -13,10 +21,11 @@ class Home extends Component {
         <hr />
         <h3>Featured Teachers</h3>
         <Link to="teachers/HTML/tommy-wingo">Tommy Wingo</Link>
-        <Link to="teachers/CSS/John-miller">John Miller</Link>
-        <form>
-          <input type="text" placeholder="Name"/>
-          <input type="text" placeholder="Topic"/>
+        <Link to="teachers/CSS/John-miller">John Miller</Link> 
+        <hr />
+        <form onSubmit={this.handleSubmit}>
+          <input type="text" placeholder="Name" ref={(input) => this.name = input } />
+          <input type="text" placeholder="Topic" ref={(input) => this.topic = input} />
           <button type="submit">Go!</button>
         </form>
       </div>
